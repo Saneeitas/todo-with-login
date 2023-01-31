@@ -63,6 +63,7 @@ router.post("/create", async (req, res) => {
       user.token = token;
 
       //return new user
+       console.log(req.user);
       return res.status(200).json(user);
     }
   } catch (error) {
@@ -105,6 +106,7 @@ router.post("/login", async (req, res) => {
       //create token
       user.token = token;
       //return user
+      console.log(req.user)
       return res.status(200).json(user);
     } else {
       return res.status(401).json({ message: "Incorrect login details" });

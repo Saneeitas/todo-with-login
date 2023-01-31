@@ -4,15 +4,15 @@ import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
 
-import { AuthProvider } from "./context/AuthProvider";
+import { UserProvider } from "./context/UserContext";
 
 
 ReactDOM.render(
-  <AuthProvider>
-    <BrowserRouter>
+  <BrowserRouter>
+    <UserProvider>
       <App />
-    </BrowserRouter>
-  </AuthProvider>,
+    </UserProvider>
+  </BrowserRouter>,
   document.getElementById("root")
 );
 

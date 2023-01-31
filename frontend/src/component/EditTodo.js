@@ -1,3 +1,5 @@
+/** @format */
+
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
@@ -37,16 +39,13 @@ const EditTodo = () => {
   };
 
   useEffect(() => {
-      (async () => {
-        const response = await axios.get(`${url}view/${id}`);
-        setTodo(response.data.todo);
-   })()
+    (async () => {
+      const response = await axios.get(`${url}view/${id}`);
+      setTodo(response.data.todo);
+    })();
   }, []);
 
-  const getTodoById = async () => {
-
-
-  };
+  const getTodoById = async () => {};
 
   return (
     <ThemeProvider theme={theme}>
@@ -59,20 +58,17 @@ const EditTodo = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-          }}
-        >
+          }}>
           <Box
             component="form"
             noValidate
             onSubmit={handleSubmit}
-            sx={{ mt: 1 }}
-          >
+            sx={{ mt: 1 }}>
             <Typography
               sx={{ m: 2 }}
               variant="h6"
               component="h4"
-              color="primary"
-            >
+              color="primary">
               Update Todo
             </Typography>
             <Grid container spacing={2}>
@@ -94,8 +90,7 @@ const EditTodo = () => {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+              sx={{ mt: 3, mb: 2 }}>
               Update
             </Button>
           </Box>

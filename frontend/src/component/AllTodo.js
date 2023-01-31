@@ -1,7 +1,9 @@
+/** @format */
+
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Link , useParams} from "react-router-dom";
-import { Table, Container }from "@mui/material";
+import { Link, useParams } from "react-router-dom";
+import { Table, Container } from "@mui/material";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
@@ -58,8 +60,7 @@ const AllTodo = () => {
             {Array.from(list).map((todo, index) => (
               <TableRow
                 key={todo.id}
-                sx={{ "&:last-child td, &:last-child th": { border: -1 } }}
-              >
+                sx={{ "&:last-child td, &:last-child th": { border: -1 } }}>
                 <TableCell component="th" scope="row">
                   {index + 1}
                 </TableCell>
@@ -70,12 +71,11 @@ const AllTodo = () => {
                 <TableCell align="left">{todo.completed_time}</TableCell>
                 <TableCell align="left">{todo.create_time}</TableCell>
                 <TableCell align="left">
-                  <Link  to={`/edit/${todo.id}`}>
-                   <EditIcon fontSize="medium" />
-                  </Link>
-                  {" "}
-                  <Link  to={`/todo-per-day/${todo.id}`}>
-                    <VisibilityIcon  fontSize="medium" />
+                  <Link to={`/edit/${todo.id}`}>
+                    <EditIcon fontSize="medium" />
+                  </Link>{" "}
+                  <Link to={`/todo-per-day/${todo.id}`}>
+                    <VisibilityIcon fontSize="medium" />
                   </Link>
                 </TableCell>
               </TableRow>

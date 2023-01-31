@@ -1,3 +1,5 @@
+/** @format */
+
 import { useContext, useState } from "react";
 import axios from "axios";
 import Typography from "@mui/material/Typography";
@@ -15,7 +17,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Alert from "@mui/material/Alert";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "../context/AuthProvider";
+import { UserContext } from "../context/UserContext"
 
 function Copyright(props) {
   return (
@@ -23,8 +25,7 @@ function Copyright(props) {
       variant="body2"
       color="text.secondary"
       align="center"
-      {...props}
-    >
+      {...props}>
       {"Copyright � "}
       <Link color="inherit" href="#">
         Northino
@@ -38,24 +39,24 @@ function Copyright(props) {
 const theme = createTheme();
 
 const Login = () => {
-  const { setAuth } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [userpassword, setUserpassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
   const [sucess, setSucess] = useState();
   const [error, setError] = useState();
+  const [userContext, setUserContext] = useContext(UserContext);
   const url = "http://localhost:5000/account";
   const navigate = useNavigate();
   let suc = true;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-     const data = new FormData(e.currentTarget);
-     console.log({
-       username: data.get("username"),
-       password: data.get("password"),
-     });
+    const data = new FormData(e.currentTarget);
+    console.log({
+      username: data.get("username"),
+      password: data.get("password"),
+    });
 
     try {
       const response = await axios.post(`${url}/login`, {
@@ -64,10 +65,12 @@ const Login = () => {
       });
       if (response.status === 200) {
         console.log("Login successfully");
-        //console.log(response.data);
+        console.log(response.data);
         localStorage.setItem("user", JSON.stringify(response.data));
         const token = response?.data?.token;
-        setAuth({ username, userpassword, token });
+        setUserContext(oldValues => {
+         return {...oldValues, token: response.token}
+       })
         setSuccessMsg("Login Successfully");
         setSucess("Success");
         setUsername("");
@@ -132,8 +135,7 @@ const Login = () => {
               md={5}
               component={Paper}
               elevation={6}
-              square
-            >
+              square>
               <Box
                 sx={{
                   my: 8,
@@ -141,8 +143,7 @@ const Login = () => {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                }}
-              >
+                }}>
                 <Avatar sx={{ m: 1 }}>
                   <LockOutlinedIcon />
                 </Avatar>
@@ -153,8 +154,7 @@ const Login = () => {
                   component="form"
                   noValidate
                   onSubmit={handleSubmit}
-                  sx={{ mt: 1 }}
-                >
+                  sx={{ mt: 1 }}>
                   <p>
                     {error ? <Alert severity="error">{errMsg}</Alert> : null}
                   </p>
@@ -191,8 +191,7 @@ const Login = () => {
                     type="submit"
                     fullWidth
                     variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-                  >
+                    sx={{ mt: 3, mb: 2 }}>
                     Sign In
                   </Button>
                   <Grid container>

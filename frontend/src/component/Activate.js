@@ -11,10 +11,10 @@ import SuccessAlert from "./SuccessAlert";
 import ErrorAlert from "./ErrorAlert";
 import classes from "./app.module.css";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "../context/AuthProvider";
+
 
 const Activate = () => {
-  const { setAuth } = useContext(AuthContext);
+  
   const [username, setUsername] = useState("");
   const [userpassword, setUserpassword] = useState("");
   const [errMsg, setErrMsg] = useState("");

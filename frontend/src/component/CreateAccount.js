@@ -1,4 +1,6 @@
-import { useState } from "react";
+/** @format */
+
+import { useContext, useState } from "react";
 import axios from "axios";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -20,6 +22,7 @@ import ErrorAlert from "./ErrorAlert";
 import SuccessAlert from "./SuccessAlert";
 import classes from "./app.module.css";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 const CreateAccount = () => {
   const navigate = useNavigate();
@@ -33,6 +36,7 @@ const CreateAccount = () => {
   const [suc, setSuc] = useState(false);
   const [error, setError] = useState(false);
   const url = "http://localhost:5000/account";
+  const [userContext, setUserContext] = useContext(UserContext);
 
   function Copyright(props) {
     return (
@@ -40,8 +44,7 @@ const CreateAccount = () => {
         variant="body2"
         color="text.secondary"
         align="center"
-        {...props}
-      >
+        {...props}>
         {"Copyright � "}
         <Link color="inherit" href="#">
           Northino
@@ -81,8 +84,12 @@ const CreateAccount = () => {
           `Your account was created successfully. 
           Kindly activate and login with your username @ ${response.data.username}`
         );
+        console.log(response);
         setSuc(true);
         return JSON.parse(localStorage.getItem("user"));
+        userContext({
+          token: response.data.token,
+        });
       }
       setFullname("");
       setPhonenumber("");
@@ -123,10 +130,7 @@ const CreateAccount = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container
-        component="main"
-        maxWidth="xs"
-      >
+      <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
@@ -134,8 +138,7 @@ const CreateAccount = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-          }}
-        >
+          }}>
           <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -146,8 +149,7 @@ const CreateAccount = () => {
             component="form"
             noValidate
             onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
-          >
+            sx={{ mt: 3 }}>
             <p>{error ? <Alert severity="error">{errMsg}</Alert> : null}</p>
             <p>{suc ? <Alert severity="success">{success}</Alert> : null}</p>
             <Grid container spacing={2}>
@@ -217,8 +219,7 @@ const CreateAccount = () => {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+              sx={{ mt: 3, mb: 2 }}>
               Sign Up
             </Button>
             <Grid container justifyContent="flex-end">
